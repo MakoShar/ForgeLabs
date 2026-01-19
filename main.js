@@ -1,5 +1,5 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider,signInWithPopup } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
   const firebaseConfig = {
     apiKey: "AIzaSyBTwNDNgQDUgYMuWPCqNW9GGxUHOXgIJZo",
     authDomain: "forgelabs-login.firebaseapp.com",
