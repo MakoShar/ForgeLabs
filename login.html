@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <title>ForgeLabs — Login</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="auth-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-elevate>
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="Back to homepage">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2.5l8.25 4.75v9.5L12 21.5 3.75 16.75v-9.5L12 2.5Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M7.25 12.1 12 9.3l4.75 2.8-4.75 2.8-4.75-2.8Z"
+                fill="currentColor"
+                opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span class="brand-text">ForgeLabs</span>
+          <span class="brand-pill">Login</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <div class="nav-actions">
+            <a class="btn btn-ghost" href="index.html">Home</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="auth-main">
+      <div class="container">
+        <section class="auth-shell" aria-label="Login">
+          <div class="auth-header">
+            <p class="eyebrow">Welcome back</p>
+            <h1 class="auth-title">Login to ForgeLabs</h1>
+            <p class="muted auth-subtitle">Use your Gmail and password to continue.</p>
+          </div>
+
+          <form class="auth-form" aria-label="Email login">
+            <label>
+              <span>Gmail</span>
+              <input
+                name="email"
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="you@gmail.com"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Password</span>
+              <input
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="••••••••"
+                required
+              />
+            </label>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+
+            <div class="auth-divider" role="separator" aria-label="Or"></div>
+
+            
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
