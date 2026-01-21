@@ -10,6 +10,53 @@
 	const toastClose = document.querySelector("[data-toast-close]");
 
 	const STORAGE_KEY = "forgelabs-theme";
+	const isServedByChatServer = window.location.protocol.startsWith("http") && window.location.port === "5000";
+	const CHAT_ENDPOINT = isServedByChatServer ? "/chat" : "http://localhost:5000/chat";
+
+	async function sendMessage() {
+ 	 const input = document.getElementById("message");
+ 	 const chatbox = document.getElementById("chatbox");
+ 	 const userText = input.value.trim();
+	if (!userText) return;
+
+  // Show user message
+  chatbox.innerHTML += `<div><b>You:</b> ${userText}</div>`;
+  input.value = "";
+
+  try {
+		const res = await fetch(CHAT_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: userText })
+    });
+
+		const data = await res.json().catch(() => ({}));
+		if (!res.ok) {
+	      let msg;
+	      if (res.status === 429) {
+	        const wait = typeof data?.retryAfterSeconds === "number" ? ` Try again in ~${data.retryAfterSeconds}s.` : "";
+	        msg = `${data?.error || "Rate limited"}.${wait} Check your Gemini API quota/billing.`;
+	      } else {
+	        msg = data?.details ? `${data.error || "Error"}: ${data.details}` : (data?.error || `Request failed (${res.status})`);
+	        if (typeof msg === "string" && msg.length > 500) msg = msg.slice(0, 500) + "…";
+	      }
+			throw new Error(msg);
+		}
+
+		const replyText = typeof data?.reply === "string" && data.reply.trim() ? data.reply : "(No reply returned)";
+		chatbox.innerHTML += `<div><b>Gemini:</b> ${replyText}</div>`;
+    chatbox.scrollTop = chatbox.scrollHeight;
+
+  } catch (err) {
+		const msg = err instanceof Error ? err.message : "Cannot connect to chatbot";
+		chatbox.innerHTML += `<div><b>Error:</b> ${msg}</div>`;
+  }
+}
+
+	// Needed because index.html uses an inline onclick="sendMessage()".
+	window.sendMessage = sendMessage;
 
 	function setTheme(theme) {
 		root.setAttribute("data-theme", theme);

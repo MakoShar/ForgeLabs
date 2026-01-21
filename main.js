@@ -1,5 +1,5 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
   const firebaseConfig = {
     apiKey: "AIzaSyBTwNDNgQDUgYMuWPCqNW9GGxUHOXgIJZo",
     authDomain: "forgelabs-login.firebaseapp.com",
@@ -15,6 +15,11 @@
   auth.languageCode = 'en';
   const provider = new GoogleAuthProvider();
   const googleLoginBtn = document.getElementById("google-login-btn");
+  if (!googleLoginBtn) {
+    // This script is also loaded on pages without the login button.
+    // Avoid throwing and breaking other page JS.
+    console.warn("google-login-btn not found; skipping Firebase login wiring.");
+  } else {
   googleLoginBtn.addEventListener("click", function() {
     signInWithPopup(auth, provider)
     .then((result) => {
@@ -27,3 +32,4 @@
       const errorMessage = error.message;
   });
 })
+}
